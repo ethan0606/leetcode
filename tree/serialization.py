@@ -1,41 +1,39 @@
 from tree.TreeNode import *
 
 
-def build(pre_order, in_order):
-    if len(pre_order) != len(in_order):
-        return None
-    map = dict()
-    for i in range(len(in_order)):
-        map[in_order[i]] = i
-    return build_tree(pre_order, 0, len(pre_order)-1, map, 0, len(in_order)-1)
+class Codec:
+    def serialize(self, root):
+        def helper(root):
+            if not root:
+                return "none,"
+            return str(root.val) + "," + helper(root.left) + helper(root.right)
+        return helper(root)
+
+    def deserialize(self, data):
+        data_array = data.split(",")
+        def helper(arr):
+            if arr[0] == "none":
+                arr.remove(arr[0])
+                return None
+            root = TreeNode(int(arr[0]))
+            arr.remove(arr[0])
+            root.left = helper(arr)
+            root.right = helper(arr)
+            return root
+        return helper(data_array)
 
 
-# 3 9 20 15 7
-# pl, pl+1,  pr
+if __name__ == "__main__":
+    root = TreeNode(0)
+    root.left = TreeNode(1)
+    root.right = TreeNode(2)
+    root.right.left = TreeNode(3)
+    root.right.right = TreeNode(4)
 
-# x -pl-1 = pi -1 -if
-# x = pi + pl -if
-
-# 9 3 15 20 7
-# if  pi
-
-
-def build_tree(pre_order, pre_left, pre_right, map, in_left, in_right):
-    if pre_left > pre_right or in_left > in_right:
-        return None
-
-    root_val = pre_order[pre_left]
-    root = TreeNode(root_val)
-    p_index = map[root_val]
-
-    root.left = build_tree(pre_order, pre_left+1, p_index-in_left+pre_left,
-                           map, in_left, p_index-1)
-    root.right = build_tree(pre_order, p_index-in_left+pre_left+1, pre_right,
-                            map, p_index+1, in_right)
-    return root
-
-if __name__ == '__main__':
-    pre_order = [3, 9, 20, 15, 7]
-    in_order = [9, 3, 15, 20, 7]
-    root = build(pre_order, in_order)
-    pre_order_print(root)
+    c = Codec()
+    in_order_print(root)
+    print()
+    res = c.serialize(root)
+    res1 = c.deserialize(res)
+    print(res)
+    in_order_print(res1)
