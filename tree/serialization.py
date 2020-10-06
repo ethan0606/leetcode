@@ -20,8 +20,6 @@ def build(pre_order, in_order):
 # if  pi
 
 
-
-
 def build_tree(pre_order, pre_left, pre_right, map, in_left, in_right):
     if pre_left > pre_right or in_left > in_right:
         return None
