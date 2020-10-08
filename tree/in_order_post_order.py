@@ -1,5 +1,6 @@
 from tree.TreeNode import *
 
+
 def build(in_order, post_order):
     in_len = len(in_order)
     post_len = len(post_order)
@@ -24,7 +25,7 @@ def build(in_order, post_order):
 
 
 if __name__ == '__main__':
-    inorder = [9, 3, 15, 20, 7]
-    postorder = [9, 15, 7, 20, 3]
-    root = build(inorder, postorder)
+    in_order = [9, 3, 15, 20, 7]
+    post_order = [9, 15, 7, 20, 3]
+    root = build(in_order, post_order)
     in_order_print(root)
