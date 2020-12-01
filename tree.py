@@ -17,6 +17,31 @@ def pre_order(root):
     helper(root)
     return res
 
+def inorder(root):
+    res = []
+
+    def helper(node):
+        if not node:
+            return None
+        helper(node.left)
+        res.append(node.val)
+        helper(node.right)
+
+    helper(root)
+    return res
+
+def post_order(root):
+    res = []
+
+    def helper(node):
+        if not node:
+            return None
+        helper(node.left)
+        helper(node.right)
+        res.append(node.val)
+    helper(root)
+    return res  
+
 
 def max_depth(root):
     if not root:
@@ -87,11 +112,6 @@ def level_order(root):
                 q.append(curr.right)
         res.append(tmp[::])
     return res
-
-
-
-
-
 
 
 
