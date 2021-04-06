@@ -3,3 +3,4 @@
 *.xml
 .idea/
 __pycache__/
+.vscode/
